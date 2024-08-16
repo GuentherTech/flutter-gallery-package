@@ -9,11 +9,13 @@ class AppCachedNetworkImage extends StatelessWidget {
   final BoxFit? fit;
   final double radius;
   final String imageUrl;
+  final Map<String, String>? httpHeaders;
 
   const AppCachedNetworkImage({
     super.key,
     required this.imageUrl,
     required this.radius,
+    this.httpHeaders,
     this.loadingWidget,
     this.errorWidget,
     this.fit,
@@ -30,6 +32,7 @@ class AppCachedNetworkImage extends StatelessWidget {
         width: width,
         fit: fit,
         imageUrl: imageUrl,
+        httpHeaders: httpHeaders,
         placeholder: (context, url) =>
             loadingWidget ?? const Center(child: CircularProgressIndicator()),
         errorWidget: (context, url, error) =>

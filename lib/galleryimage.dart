@@ -2,13 +2,14 @@ library galleryimage;
 
 import 'package:flutter/material.dart';
 
-import 'gallery_item_model.dart';
-import 'gallery_item_thumbnail.dart';
 import './gallery_image_view_wrapper.dart';
 import './util.dart';
+import 'gallery_item_model.dart';
+import 'gallery_item_thumbnail.dart';
 
 class GalleryImage extends StatefulWidget {
   final List<String> imageUrls;
+  final Map<String, String>? httpHeaders;
   final String? titleGallery;
   final int numOfShowImages;
   final int crossAxisCount;
@@ -33,6 +34,7 @@ class GalleryImage extends StatefulWidget {
   const GalleryImage({
     Key? key,
     required this.imageUrls,
+    this.httpHeaders,
     this.titleGallery,
     this.childAspectRatio = 1,
     this.crossAxisCount = 3,
@@ -63,7 +65,7 @@ class _GalleryImageState extends State<GalleryImage> {
   List<GalleryItemModel> galleryItems = <GalleryItemModel>[];
   @override
   void initState() {
-    _buildItemsList(widget.imageUrls);
+    _buildItemsList(widget.imageUrls, widget.httpHeaders);
     super.initState();
   }
 
@@ -166,11 +168,15 @@ class _GalleryImageState extends State<GalleryImage> {
   }
 
 // clear and build list
-  void _buildItemsList(List<String> items) {
+  void _buildItemsList(List<String> items, Map<String, String>? httpHeaders) {
     galleryItems.clear();
     for (var item in items) {
       galleryItems.add(
-        GalleryItemModel(id: item, imageUrl: item, index: items.indexOf(item)),
+        GalleryItemModel(
+            id: item,
+            imageUrl: item,
+            httpHeaders: httpHeaders,
+            index: items.indexOf(item)),
       );
     }
   }
