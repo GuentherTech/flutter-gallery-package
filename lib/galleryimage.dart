@@ -33,6 +33,17 @@ class GalleryImage extends StatefulWidget {
   final bool closeWhenSwipeUp;
   final bool closeWhenSwipeDown;
 
+  final bool showTitleImage;
+  final double? titleImageWidth;
+  final double? titleImageHeight;
+  final bool showFullScreen;
+  final int initialIndex;
+
+  final double gridHorizontalSpacing;
+  final double gridVerticalSpacing;
+  final int gridColumns;
+  final BorderRadius thumbnailBorderRadius;
+
   const GalleryImage({
     Key? key,
     required this.imageUrls,
@@ -59,6 +70,15 @@ class GalleryImage extends StatefulWidget {
     this.appBarActions,
     this.closeWhenSwipeUp = false,
     this.closeWhenSwipeDown = false,
+    this.showTitleImage = false,
+    this.titleImageWidth,
+    this.titleImageHeight,
+    this.gridHorizontalSpacing = 5,
+    this.gridVerticalSpacing = 5,
+    this.gridColumns = 3,
+    this.thumbnailBorderRadius = const BorderRadius.all(Radius.circular(8)),
+    this.showFullScreen = false,
+    this.initialIndex = 0,
   })  : assert(numOfShowImages <= imageUrls.length),
         super(key: key);
   @override
@@ -67,6 +87,7 @@ class GalleryImage extends StatefulWidget {
 
 class _GalleryImageState extends State<GalleryImage> {
   List<GalleryItemModel> galleryItems = <GalleryItemModel>[];
+
   @override
   void initState() {
     _buildItemsList(widget.imageUrls, widget.httpHeaders);
@@ -83,32 +104,51 @@ class _GalleryImageState extends State<GalleryImage> {
   Widget build(BuildContext context) {
     return galleryItems.isEmpty
         ? const EmptyWidget()
-        : GridView.builder(
-            primary: false,
-            itemCount: galleryItems.length > 3
-                ? widget.numOfShowImages
-                : galleryItems.length,
-            padding: widget.padding,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: widget.childAspectRatio,
-              crossAxisCount: widget.crossAxisCount,
-              mainAxisSpacing: widget.mainAxisSpacing,
-              crossAxisSpacing: widget.crossAxisSpacing,
-            ),
-            shrinkWrap: true,
-            itemBuilder: (BuildContext context, int index) {
-              return _isLastItem(index)
-                  ? _buildImageNumbers(index)
-                  : GalleryItemThumbnail(
-                      galleryItem: galleryItems[index],
-                      onTap: () {
-                        _openImageFullScreen(index);
-                      },
-                      loadingWidget: widget.loadingWidget,
-                      errorWidget: widget.errorWidget,
-                      radius: widget.imageRadius,
-                    );
-            });
+        : (widget.showFullScreen
+            ? GalleryImageViewWrapper(
+                titleGallery: widget.titleGallery,
+                galleryItems: galleryItems,
+                backgroundColor: widget.galleryBackgroundColor,
+                initialIndex: widget.initialIndex,
+                onPageChanged: widget.onPageChanged,
+                loadingWidget: widget.loadingWidget,
+                errorWidget: widget.errorWidget,
+                maxScale: widget.maxScale,
+                minScale: widget.minScale,
+                reverse: widget.reverse,
+                showListInGalley: widget.showListInGalley,
+                showAppBar: widget.showAppBar,
+                appBarActions: widget.appBarActions,
+                closeWhenSwipeUp: widget.closeWhenSwipeUp,
+                closeWhenSwipeDown: widget.closeWhenSwipeDown,
+                radius: widget.imageRadius,
+              )
+            : GridView.builder(
+                primary: false,
+                itemCount: galleryItems.length > 3
+                    ? widget.numOfShowImages
+                    : galleryItems.length,
+                padding: widget.padding,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: widget.childAspectRatio,
+                  crossAxisCount: widget.crossAxisCount,
+                  mainAxisSpacing: widget.mainAxisSpacing,
+                  crossAxisSpacing: widget.crossAxisSpacing,
+                ),
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return _isLastItem(index)
+                      ? _buildImageNumbers(index)
+                      : GalleryItemThumbnail(
+                          galleryItem: galleryItems[index],
+                          onTap: () {
+                            _openImageFullScreen(index);
+                          },
+                          loadingWidget: widget.loadingWidget,
+                          errorWidget: widget.errorWidget,
+                          radius: widget.imageRadius,
+                        );
+                }));
   }
 
 // build image with number for other images
