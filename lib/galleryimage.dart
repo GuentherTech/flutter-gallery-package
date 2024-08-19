@@ -160,7 +160,7 @@ class _GalleryImageState extends State<GalleryImage> {
         builder: (context) => GalleryImageViewWrapper(
           titleGallery: widget.titleGallery,
           galleryItems: galleryItems,
-          //backgroundColor: widget.galleryBackgroundColor,
+          backgroundColor: widget.galleryBackgroundColor,
           initialIndex: indexOfImage,
           onPageChanged: widget.onPageChanged,
           loadingWidget: widget.loadingWidget,
