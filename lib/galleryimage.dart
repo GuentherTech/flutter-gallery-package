@@ -70,6 +70,12 @@ class _GalleryImageState extends State<GalleryImage> {
   }
 
   @override
+  void didUpdateWidget(covariant GalleryImage oldWidget) {
+    _buildItemsList(widget.imageUrls, widget.httpHeaders);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return galleryItems.isEmpty
         ? const EmptyWidget()
