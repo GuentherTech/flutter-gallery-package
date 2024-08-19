@@ -5,8 +5,9 @@ import 'gallery_item_model.dart';
 
 // to view image in full screen
 class GalleryImageViewWrapper extends StatefulWidget {
-  final Color? backgroundColor;
+  //final Color? backgroundColor;
   final int? initialIndex;
+  final void Function(int)? onPageChanged;
   final List<GalleryItemModel> galleryItems;
   final String? titleGallery;
   final Widget? loadingWidget;
@@ -23,8 +24,9 @@ class GalleryImageViewWrapper extends StatefulWidget {
   const GalleryImageViewWrapper({
     Key? key,
     required this.titleGallery,
-    required this.backgroundColor,
+    //required this.backgroundColor,
     required this.initialIndex,
+    required this.onPageChanged,
     required this.galleryItems,
     required this.loadingWidget,
     required this.errorWidget,
@@ -51,12 +53,8 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
 
   @override
   void initState() {
-    _currentPage = 0;
-    _controller.addListener(() {
-      setState(() {
-        _currentPage = _controller.page?.toInt() ?? 0;
-      });
-    });
+    _currentPage = widget.initialIndex ?? 0;
+    widget.onPageChanged?.call(_currentPage);
     super.initState();
   }
 
@@ -74,7 +72,7 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
               title: Text(widget.titleGallery ?? "Gallery"),
             )
           : null,
-      backgroundColor: widget.backgroundColor,
+      //backgroundColor: widget.backgroundColor,
       body: SafeArea(
         child: Container(
           constraints:
@@ -101,6 +99,12 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
                     itemCount: widget.galleryItems.length,
                     itemBuilder: (context, index) =>
                         _buildImage(widget.galleryItems[index]),
+                    onPageChanged: (index) {
+                      widget.onPageChanged?.call(index);
+                      setState(() {
+                        _currentPage = index;
+                      });
+                    },
                   ),
                 ),
               ),

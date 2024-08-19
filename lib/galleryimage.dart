@@ -9,6 +9,7 @@ import 'gallery_item_thumbnail.dart';
 
 class GalleryImage extends StatefulWidget {
   final List<String> imageUrls;
+  final void Function(int)? onPageChanged;
   final Map<String, String>? httpHeaders;
   final String? titleGallery;
   final int numOfShowImages;
@@ -34,6 +35,7 @@ class GalleryImage extends StatefulWidget {
   const GalleryImage({
     Key? key,
     required this.imageUrls,
+    this.onPageChanged,
     this.httpHeaders,
     this.titleGallery,
     this.childAspectRatio = 1,
@@ -156,8 +158,9 @@ class _GalleryImageState extends State<GalleryImage> {
         builder: (context) => GalleryImageViewWrapper(
           titleGallery: widget.titleGallery,
           galleryItems: galleryItems,
-          backgroundColor: widget.galleryBackgroundColor,
+          //backgroundColor: widget.galleryBackgroundColor,
           initialIndex: indexOfImage,
+          onPageChanged: widget.onPageChanged,
           loadingWidget: widget.loadingWidget,
           errorWidget: widget.errorWidget,
           maxScale: widget.maxScale,
