@@ -29,6 +29,7 @@ class GalleryImage extends StatefulWidget {
   final bool reverse;
   final bool showListInGalley;
   final bool showAppBar;
+  final List<Widget>? appBarActions;
   final bool closeWhenSwipeUp;
   final bool closeWhenSwipeDown;
 
@@ -55,6 +56,7 @@ class GalleryImage extends StatefulWidget {
     this.reverse = false,
     this.showListInGalley = true,
     this.showAppBar = true,
+    this.appBarActions,
     this.closeWhenSwipeUp = false,
     this.closeWhenSwipeDown = false,
   })  : assert(numOfShowImages <= imageUrls.length),
@@ -168,6 +170,7 @@ class _GalleryImageState extends State<GalleryImage> {
           reverse: widget.reverse,
           showListInGalley: widget.showListInGalley,
           showAppBar: widget.showAppBar,
+          appBarActions: widget.appBarActions,
           closeWhenSwipeUp: widget.closeWhenSwipeUp,
           closeWhenSwipeDown: widget.closeWhenSwipeDown,
           radius: widget.imageRadius,

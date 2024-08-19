@@ -18,6 +18,7 @@ class GalleryImageViewWrapper extends StatefulWidget {
   final bool reverse;
   final bool showListInGalley;
   final bool showAppBar;
+  final List<Widget>? appBarActions;
   final bool closeWhenSwipeUp;
   final bool closeWhenSwipeDown;
 
@@ -36,6 +37,7 @@ class GalleryImageViewWrapper extends StatefulWidget {
     required this.reverse,
     required this.showListInGalley,
     required this.showAppBar,
+    required this.appBarActions,
     required this.closeWhenSwipeUp,
     required this.closeWhenSwipeDown,
   }) : super(key: key);
@@ -70,6 +72,7 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
       appBar: widget.showAppBar
           ? AppBar(
               title: Text(widget.titleGallery ?? "Gallery"),
+              actions: widget.appBarActions,
             )
           : null,
       //backgroundColor: widget.backgroundColor,
