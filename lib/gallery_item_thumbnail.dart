@@ -12,13 +12,12 @@ class GalleryItemThumbnail extends StatelessWidget {
   final double radius;
 
   const GalleryItemThumbnail(
-      {Key? key,
+      {super.key,
       required this.galleryItem,
       required this.onTap,
       required this.radius,
       required this.loadingWidget,
-      required this.errorWidget})
-      : super(key: key);
+      required this.errorWidget});
 
   @override
   Widget build(BuildContext context) {

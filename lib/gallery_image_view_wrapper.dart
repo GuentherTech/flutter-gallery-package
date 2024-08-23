@@ -23,7 +23,7 @@ class GalleryImageViewWrapper extends StatefulWidget {
   final bool closeWhenSwipeDown;
 
   const GalleryImageViewWrapper({
-    Key? key,
+    super.key,
     required this.titleGallery,
     required this.backgroundColor,
     required this.initialIndex,
@@ -40,7 +40,7 @@ class GalleryImageViewWrapper extends StatefulWidget {
     required this.appBarActions,
     required this.closeWhenSwipeUp,
     required this.closeWhenSwipeDown,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {

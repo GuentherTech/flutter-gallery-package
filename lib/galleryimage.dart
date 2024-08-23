@@ -45,7 +45,7 @@ class GalleryImage extends StatefulWidget {
   final BorderRadius thumbnailBorderRadius;
 
   const GalleryImage({
-    Key? key,
+    super.key,
     required this.imageUrls,
     this.onPageChanged,
     this.httpHeaders,
@@ -79,8 +79,7 @@ class GalleryImage extends StatefulWidget {
     this.thumbnailBorderRadius = const BorderRadius.all(Radius.circular(8)),
     this.showFullScreen = false,
     this.initialIndex = 0,
-  })  : assert(numOfShowImages <= imageUrls.length),
-        super(key: key);
+  }) : assert(numOfShowImages <= imageUrls.length);
   @override
   State<GalleryImage> createState() => _GalleryImageState();
 }
