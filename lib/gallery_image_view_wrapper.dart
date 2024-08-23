@@ -140,6 +140,7 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
         child: Center(
           child: AppCachedNetworkImage(
             imageUrl: item.imageUrl,
+            httpHeaders: item.httpHeaders,
             loadingWidget: widget.loadingWidget,
             errorWidget: widget.errorWidget,
             radius: widget.radius,
@@ -164,6 +165,7 @@ class _GalleryImageViewWrapperState extends State<GalleryImageViewWrapper> {
           width: _currentPage == item.index ? 70 : 60,
           fit: BoxFit.cover,
           imageUrl: item.imageUrl,
+          httpHeaders: item.httpHeaders,
           errorWidget: widget.errorWidget,
           radius: widget.radius,
           loadingWidget: widget.loadingWidget,
